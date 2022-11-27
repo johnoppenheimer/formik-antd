@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DatePicker as $DatePicker } from 'antd'
 import { FieldProps } from 'formik'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { FormikFieldProps } from '../FieldProps'
 import Field from '../field'
 import {
@@ -17,15 +17,13 @@ const {
   WeekPicker: $WeekPicker,
 } = $DatePicker
 
-export type DatePickerProps = $DatePickerProps &
-  FormikFieldProps & { keepOffset?: boolean }
+export type DatePickerProps = $DatePickerProps & FormikFieldProps
 
 export const DatePicker = ({
   name,
   validate,
   onChange,
   fast,
-  keepOffset,
   ...restProps
 }: DatePickerProps) => (
   <Field name={name} validate={validate} fast={fast}>
@@ -34,9 +32,9 @@ export const DatePicker = ({
       form: { setFieldValue, setFieldTouched },
     }: FieldProps) => (
       <$DatePicker
-        value={value ? moment(value) : undefined}
+        value={value ? dayjs(value) : undefined}
         onChange={(date, dateString) => {
-          setFieldValue(name, date ? date.toISOString(keepOffset) : null)
+          setFieldValue(name, date ? date.toISOString() : null)
           setFieldTouched(name, true, false)
           onChange && onChange(date, dateString)
         }}
@@ -52,7 +50,6 @@ DatePicker.MonthPicker = ({
   name,
   validate,
   onChange,
-  keepOffset,
   ...restProps
 }: MonthPickerProps) => (
   <Field name={name} validate={validate}>
@@ -61,9 +58,9 @@ DatePicker.MonthPicker = ({
       form: { setFieldValue, setFieldTouched },
     }: FieldProps) => (
       <$MonthPicker
-        value={value ? moment(value) : undefined}
+        value={value ? dayjs(value) : undefined}
         onChange={(date, dateString) => {
-          setFieldValue(name, date ? date.toISOString(keepOffset) : null)
+          setFieldValue(name, date ? date.toISOString() : null)
           setFieldTouched(name, true, false)
           onChange && onChange(date, dateString)
         }}

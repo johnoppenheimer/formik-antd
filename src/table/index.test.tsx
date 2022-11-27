@@ -76,7 +76,7 @@ test('deletes row', async () => {
   await act(async () => {
     fireEvent.click(uat)
     await waitFor(() => {
-      expect(getByText('No Data')).toBeInTheDocument()
+      expect(getByText('No data')).toBeInTheDocument()
     })
   })
 })

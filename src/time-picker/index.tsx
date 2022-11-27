@@ -1,7 +1,7 @@
 import { TimePicker as $TimePicker } from 'antd'
 import { FieldProps } from 'formik'
 import * as React from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { FormikFieldProps } from '../FieldProps'
 import Field from '../field'
 import { TimePickerProps as $TimePickerProps } from 'antd/lib/time-picker'
@@ -23,9 +23,9 @@ export const TimePicker = ({
       form: { setFieldValue, setFieldTouched },
     }: FieldProps) => (
       <$TimePicker
-        value={value ? moment(value) : undefined}
+        value={value ? dayjs(value) : undefined}
         onChange={(time, timeString) => {
-          setFieldValue(name, time ? time.toISOString(keepOffset) : null)
+          setFieldValue(name, time ? time.toISOString() : null)
           setFieldTouched(name, true, false)
           onChange && onChange(time, timeString)
         }}
