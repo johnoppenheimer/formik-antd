@@ -9,11 +9,7 @@ export function Form(props: FormProps) {
   return (
     <Field>
       {({ form: { handleReset, handleSubmit } }: FieldProps) => (
-        <$Form
-          onReset={handleReset}
-          onFinish={handleSubmit}
-          {...props}
-        />
+        <$Form onReset={handleReset} onFinish={handleSubmit} {...props} />
       )}
     </Field>
   )

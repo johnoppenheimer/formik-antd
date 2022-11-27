@@ -7,36 +7,37 @@ import { act } from 'react-dom/test-utils'
 import { fireEvent, render } from '@testing-library/react'
 
 const TestSelect = () => {
-	return (
-		<Formik initialValues={{ field: 0 }} onSubmit={() => {
-		}}>
-			<Form>
-				<Select name={'field'}>
-					<Select.Option value={0}>Zero</Select.Option>
-					<Select.Option value={1}>One</Select.Option>
-				</Select>
-			</Form>
-		</Formik>
-	)
+  return (
+    <Formik initialValues={{ field: 0 }} onSubmit={() => {}}>
+      <Form>
+        <Select name={'field'}>
+          <Select.Option value={0}>Zero</Select.Option>
+          <Select.Option value={1}>One</Select.Option>
+        </Select>
+      </Form>
+    </Formik>
+  )
 }
 
 test('renders select', async () => {
-	const { queryByRole } = render(<TestSelect />)
-	expect(queryByRole('combobox')).toBeInTheDocument()
+  const { queryByRole } = render(<TestSelect />)
+  expect(queryByRole('combobox')).toBeInTheDocument()
 })
 
 test('sets initial value', async () => {
-	const { queryByText } = render(<TestSelect/>)
-	expect(queryByText('Zero')).toBeInTheDocument()
+  const { queryByText } = render(<TestSelect />)
+  expect(queryByText('Zero')).toBeInTheDocument()
 })
 
 test('changes selected upon clicking', async () => {
-	const { getByRole, queryByText, getByText, getAllByText } = render(<TestSelect/>)
-	const selector = getByRole('combobox')
-	expect(queryByText('Zero')).toBeInTheDocument()
-	fireEvent.mouseDown(selector)
-	await act(async () => {
-		fireEvent.click(getByText('One'))
-	})
-	expect(getAllByText('One').length).toBeGreaterThan(1)
+  const { getByRole, queryByText, getByText, getAllByText } = render(
+    <TestSelect />,
+  )
+  const selector = getByRole('combobox')
+  expect(queryByText('Zero')).toBeInTheDocument()
+  fireEvent.mouseDown(selector)
+  await act(async () => {
+    fireEvent.click(getByText('One'))
+  })
+  expect(getAllByText('One').length).toBeGreaterThan(1)
 })
